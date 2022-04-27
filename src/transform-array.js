@@ -13,9 +13,28 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+ function transform(arr) {
+  if(!Array.isArray(arr)) throw new Error(`'arr' parameter must be an instance of the Array!`);
+  if (arr.length > 50) return arr;
+    let copy = [...arr];
+    let discardNext = '--discard-next';
+    let discardPrev = '--discard-prev';
+    let doubleNext = '--double-next';
+    let doublePrev = '--double-prev';
+
+    for (let i = 0; i < copy.length; i++) {
+        if (copy[i] == discardNext && copy[i + 1] && Number.isInteger(copy[i + 1])) {
+            copy.splice(i + 1, 1);
+        } else if(copy[i] == discardPrev && copy[i - 1] && Number.isInteger(copy[i - 1])) {
+            copy.splice(i - 1, 1);
+        } else if(copy[i] == doubleNext && copy[i + 1] && Number.isInteger(copy[i + 1])) {
+            copy.splice(i,0, copy[i + 1]);
+        } else if(copy[i] == doublePrev && copy[i - 1] && Number.isInteger(copy[i - 1])) {
+            copy.splice(i - 1,0, copy[i - 1]);
+        }
+    }
+
+    return copy.filter(e => Number.isInteger(e));
 }
 
 module.exports = {
