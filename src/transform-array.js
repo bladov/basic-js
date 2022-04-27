@@ -14,6 +14,8 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
  function transform(arr) {
+  throw new NotImplementedError('Not implemented');
+  // remove line with error and write your code here
   if(!Array.isArray(arr)) throw new Error(`'arr' parameter must be an instance of the Array!`);
   if (arr.length > 50) return arr;
     let copy = [...arr];
