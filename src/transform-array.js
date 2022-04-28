@@ -14,29 +14,59 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
  function transform(arr) {
-  throw new NotImplementedError('Not implemented');
+  // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
-  if(!Array.isArray(arr)) throw new Error(`'arr' parameter must be an instance of the Array!`);
-  if (arr.length > 50) return arr;
-    let copy = [...arr];
-    let discardNext = '--discard-next';
-    let discardPrev = '--discard-prev';
-    let doubleNext = '--double-next';
-    let doublePrev = '--double-prev';
+  if(!Array.isArray(arr)) throw new Error(`'arr' parameter must be an instance of the Array!`)
+  let copy = [...arr];
+  let result = [];
+  let discardNext = '--discard-next';
+  let discardPrev = '--discard-prev';
+  let doubleNext = '--double-next';
+  let doublePrev = '--double-prev';
 
-    for (let i = 0; i < copy.length; i++) {
-        if (copy[i] == discardNext && copy[i + 1] && Number.isInteger(copy[i + 1])) {
-            copy.splice(i + 1, 1);
-        } else if(copy[i] == discardPrev && copy[i - 1] && Number.isInteger(copy[i - 1])) {
-            copy.splice(i - 1, 1);
-        } else if(copy[i] == doubleNext && copy[i + 1] && Number.isInteger(copy[i + 1])) {
-            copy.splice(i,0, copy[i + 1]);
-        } else if(copy[i] == doublePrev && copy[i - 1] && Number.isInteger(copy[i - 1])) {
-            copy.splice(i - 1,0, copy[i - 1]);
-        }
-    }
+  let avoid = 0;
 
-    return copy.filter(e => Number.isInteger(e));
+  for (let i = 0; i < arr.length; i++) {
+      switch (arr[i]) {
+          case (discardNext):
+              i++;
+              avoid++;
+              break;
+          case (discardPrev):
+              if (avoid == 1) {
+                  avoid = 0;
+                  break;
+              }
+              result.pop();
+              break;
+          case (doubleNext):
+              if (avoid == 1) {
+                  avoid = 0;
+                  break;
+              }
+              if (i == arr.length - 1) break;
+              result.push(arr[i + 1]);
+              break;
+          case (doublePrev):
+              if (!result.length) {
+                  break;
+              }
+              if (avoid == 1) {
+                  avoid = 0;
+                  break;
+              }
+              result.push(result[result.length - 1]);
+              break;
+          default:
+              if (avoid == 1) {
+                  avoid = 0;
+              }
+              result.push(arr[i]);
+              break;
+      }
+  }
+
+  return result;
 }
 
 module.exports = {
