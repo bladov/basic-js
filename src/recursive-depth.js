@@ -17,6 +17,27 @@ class DepthCalculator {
     throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
   }
+
+  // constructor() {
+  //     this.depth = 0;
+  //     this.result = 0;
+  // }
+  // calculateDepth(arr) {
+
+  //     arr.forEach(item => {
+  //         if (Array.isArray(item)){
+  //           if( this.result > this.depth) {
+  //             this.depth = this.result;
+  //         }
+
+  //             this.result++;
+              
+  //             this.calculateDepth(item);
+  //         }
+  //     })
+  //     this.result = 0;
+  //     return this.depth + 1;
+  // }
 }
 
 module.exports = {

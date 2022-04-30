@@ -20,6 +20,31 @@ function repeater(/* str, options */) {
   // remove line with error and write your code here
 }
 
+// function repeater(str, options) {
+//   let result = [`${str}`];
+//   let addition = [`${options.addition}`];
+
+//   options.separator ? options.separator : options.separator = '+'
+//   options.additionSeparator ? options.additionSeparator : options.additionSeparator = '|';
+
+
+//   for (let i = 0; i < options.additionRepeatTimes; i++){
+//       addition[i] = `${options.addition}`;
+//   }
+
+//   for (let i = 0; i < options.repeatTimes; i++){
+//       if (!options.hasOwnProperty(addition)) {
+//           result[i] = str;
+//           continue;
+//       }
+//       result[i] = str + (addition.join(options.additionSeparator) || '');
+//   }
+
+
+//   return result.join(options.separator)
+
+// }
+
 module.exports = {
   repeater
 };
